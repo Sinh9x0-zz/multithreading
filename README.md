@@ -1,2 +1,5 @@
-# multithreading-practice
-Small projects built in C++ using multi-threading concepts and mutual exclusion principles — Edit
+# Vowel Count
+
+Counts all vowels in specified text files using multithreading. Mutual exclusion is used to lock processing to avoid conflicts.
+
+#
