@@ -21,16 +21,17 @@ int a = 0, e = 0, i = 0, o = 0, u = 0;
 pthread_mutex_t myMutex;
 
 void * vowelCount(void *args) {
-  ifstream inFile;
-  string *p = (string *)args;
-  string file = *p;
-  delete p;
-  pthread_mutex_lock(&myMutex);
-  inFile.open(file.c_str());
-  if (!inFile){
-	cout << "Unable to open " << file << endl;
-	exit(1);
-  }
+    ifstream inFile;
+    string *p = (string *)args;
+    string file = *p;
+    delete p;
+    pthread_mutex_lock(&myMutex);
+    inFile.open(file.c_str());
+
+    if (!inFile){
+      cout << "Unable to open " << file << endl;
+      exit(1);
+    }
   
   //check each char for vowels
   char vowel;
@@ -46,6 +47,7 @@ void * vowelCount(void *args) {
   	else if (vowel == 'u' || vowel == 'U')
   	  u++;
   }
+
   inFile.close(); 
   pthread_mutex_unlock(&myMutex);
   pthread_exit(NULL);
@@ -76,11 +78,14 @@ int main(){
   }
   
   for (int n = 0; n < NUM_THREADS; n++){
+
   	if(pthread_join(thread[n], NULL)){
   	  cout << "Error joining thread" << endl;
   	  return -1;
   	}
+    
   }
+
   pthread_mutex_destroy(&myMutex);
   cout << "A: " << a << endl;
   cout << "E: " << e << endl;
